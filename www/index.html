@@ -96,7 +96,7 @@
 						<a href="#homePage">Home</a>
 					</li>
 					<li>
-						<a href="#gamePage" class="ui-btn-active ui-state-persist">Game</a>
+						<a href="#gamePage" class="removeCurrentGame ui-btn-active ui-state-persist">Game</a>
 					</li>
 					<li>
 						<a href="#scorePage">Score</a>
@@ -134,36 +134,39 @@
 					<hr/>
 					<div class="currentMode ui-screen-hidden" data-gameMode="tower">
 						How many cards did each player collect?
-						<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=0>
-							<label class='playerName'></label>
-							<input type="text" data-role="spinbox" class="towerScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
-							/>
+						<div class="playerScores">
+							<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=0>
+								<label class='playerName'></label>
+								<input type="text" data-role="spinbox" class="towerScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
+								/>
+							</div>
+							<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=1>
+								<label class='playerName'></label>
+								<input type="text" data-role="spinbox" class="towerScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
+								/>
+							</div>
+							<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=2>
+								<label class='playerName'></label>
+								<input type="text" data-role="spinbox" class="towerScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
+								/>
+							</div>
+							<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=3>
+								<label class='playerName'></label>
+								<input type="text" data-role="spinbox" class="towerScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
+								/>
+							</div>
+							<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=4>
+								<label class='playerName'></label>
+								<input type="text" data-role="spinbox" class="towerScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
+								/>
+							</div>
+							<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=5>
+								<label class='playerName'></label>
+								<input type="text" data-role="spinbox" class="towerScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
+								/>
+							</div>
 						</div>
-						<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=1>
-							<label class='playerName'></label>
-							<input type="text" data-role="spinbox" class="towerScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
-							/>
-						</div>
-						<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=2>
-							<label class='playerName'></label>
-							<input type="text" data-role="spinbox" class="towerScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
-							/>
-						</div>
-						<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=3>
-							<label class='playerName'></label>
-							<input type="text" data-role="spinbox" class="towerScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
-							/>
-						</div>
-						<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=4>
-							<label class='playerName'></label>
-							<input type="text" data-role="spinbox" class="towerScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
-							/>
-						</div>
-						<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=5>
-							<label class='playerName'></label>
-							<input type="text" data-role="spinbox" class="towerScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
-							/>
-						</div>
+						<a href="#scorePage" class="ui-btn ui-shadow" id="submitTowerScoreInput">Done</a>
 					</div>
 				</div>
 			</div>
@@ -186,7 +189,7 @@
 						<a href="#homePage">Home</a>
 					</li>
 					<li>
-						<a href="#gamePage">Game</a>
+						<a href="#gamePage" class="goToGamePage">Game</a>
 					</li>
 					<li>
 						<a href="#scorePage" class="ui-btn-active ui-state-persist">Score</a>
@@ -197,7 +200,9 @@
 		</div>
 
 		<div class="ui-content">
-			<p>This is page 3</p>
+			<div id="scorePageRoot">
+
+			</div>
 		</div>
 		<!-- end page 3 content -->
 

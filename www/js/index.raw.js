@@ -49,7 +49,18 @@ var app = {
                 })
                 .then((files) => {
                     console.log(files)
-                })
+                });
+
+            $('.goToGamePage').click(function () {
+                renderGamePage();
+            });
+
+            $('.removeCurrentGame').click(function () {
+                if (gameState && gameState.rounds.length !== 0 && gameState.rounds[gameState.rounds.length - 1].active) {
+                    gameState.rounds.pop();
+                    renderGamePage();
+                };
+            });
 
             $('#newGamePage #deletePlayer').click(function () {
                 let $deletePlayerBtn = $(this);
@@ -107,6 +118,7 @@ var app = {
                     $('#gamePageCurrentGameName').text(settings.game.modes[currentRound.mode]);
                     $(`#gamePageCurrentGameDiv .currentMode[data-gameMode="${currentRound.mode}"]`).removeClass('ui-screen-hidden');
 
+                    // The Inferno Tower
                     if (currentRound.mode === 'tower') {
                         for (let playerIndex = 0; playerIndex < settings.game.players.max; playerIndex++) {
                             let $playerScoreContainer = $(`#gamePageCurrentGameDiv .currentMode[data-gameMode="tower"] .playerScoreContainer[data-index=${playerIndex}]`);
@@ -123,11 +135,33 @@ var app = {
                 }
             };
 
+            function renderScorePage() {
+                $('#scorePageRoot').html(JSON.stringify(gameState.players));
+            };
+
             $('.nextGameChoice').click(function () {
                 let mode = $(this).attr('data-mode');
                 gameState.rounds.push({ mode: mode, active: true, score: {} })
                 renderGamePage();
                 writeGameFile();
+            });
+
+            $('#submitTowerScoreInput').click(function () {
+                let maxScore = 0;
+                let currentRound = gameState.rounds[gameState.rounds.length - 1];
+                $(`#gamePageCurrentGameDiv .currentMode[data-gameMode="tower"] .playerScoreContainer`).not('.ui-screen-hidden').each(function (index, element) {
+                    let score = parseInt($(element).find('.towerScore').first().val());
+                    if (score > maxScore) { maxScore = score };
+                    currentRound.score[index] = score;
+                });
+                for (let playerIndex in currentRound.score) {
+                    if (currentRound.score[playerIndex] === maxScore) {
+                        currentRound.score[playerIndex] += 5;
+                    };
+                    gameState.players[playerIndex].score += currentRound.score[playerIndex];
+                };
+                currentRound.active = false;
+                renderScorePage();
             });
 
         });
