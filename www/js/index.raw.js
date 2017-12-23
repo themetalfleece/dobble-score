@@ -17,13 +17,11 @@
  * under the License.
  */
 
-var CordovaPromiseFS = require('cordova-promise-fs');
+const CordovaPromiseFS = require('cordova-promise-fs');
+const settings = require('../../settings');
 
-let gameState = {
-    players: [{ name: 'jason', score: 0 }]
-};
-let currentGameFile;
-var fs = CordovaPromiseFS({
+let gameState;
+let fs = CordovaPromiseFS({
     persistent: true, // or false
     storageSize: 2 * 1024 * 1024, // storage size in bytes (=2MB)
     concurrency: 3, // how many concurrent uploads/downloads?
@@ -45,16 +43,36 @@ var app = {
 
         $(document).ready(function () {
 
-            $('#newGamePage #startGame').click(() => {
-                $('#gamePageRoot').text(Math.random());
+            $('#newGamePage #startGame').click(function () {
+                gameState = { players: [] };
+                $('#newGamePage .playerNameInputWrapper').each((index, element) => {
+                    let $wrapper = $(element);
+                    if (!$wrapper.hasClass('ui-screen-hidden')) {
+                        let playerName = $wrapper.find('.playerNameInput').first().val();
+                        gameState.players.push({ name: playerName });
+                    };
+                });
+                console.log(gameState);
             });
 
-            $('#newGamePage #deletePlayer').click(() => {
+            $('#newGamePage #deletePlayer').click(function () {
+                let $deletePlayerBtn = $(this);
                 $('.playerNameInputWrapper').not('.ui-screen-hidden').last().addClass('ui-screen-hidden');
+                let currentPlayers = $('.playerNameInputWrapper').not('.ui-screen-hidden').length;
+                if (currentPlayers === settings.game.players.min) {
+                    $deletePlayerBtn.addClass('ui-state-disabled');
+                };
+                $('#newGamePage #addPlayer').removeClass('ui-state-disabled');
             });
 
-            $('#newGamePage #addPlayer').click(() => {
+            $('#newGamePage #addPlayer').click(function () {
+                let $addPlayerBtn = $(this);
                 $('.playerNameInputWrapper.ui-screen-hidden').first().removeClass('ui-screen-hidden');
+                let currentPlayers = $('.playerNameInputWrapper').not('.ui-screen-hidden').length;
+                if (currentPlayers === settings.game.players.max) {
+                    $addPlayerBtn.addClass('ui-state-disabled');
+                };
+                $('#newGamePage #deletePlayer').removeClass('ui-state-disabled');
             });
         });
 

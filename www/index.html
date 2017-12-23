@@ -175,8 +175,12 @@
 			<h3>New Game</h3>
 
 			<div id="playerInputsDiv">
-				<input type="text" class="playerNameInput" data-clear-btn="true" value="Player 1" data-index=1>
-				<input type="text" class="playerNameInput" data-clear-btn="true" value="Player 2" data-index=2>
+				<div class="playerNameInputWrapper">
+					<input type="text" class="playerNameInput" data-clear-btn="true" value="Player 1" data-index=1>
+				</div>
+				<div class="playerNameInputWrapper">
+					<input type="text" class="playerNameInput" data-clear-btn="true" value="Player 2" data-index=2>
+				</div>
 				<div class="playerNameInputWrapper ui-screen-hidden">
 					<input type="text" class="playerNameInput" data-clear-btn="true" value="Player 3" data-index=3>
 				</div>
@@ -192,7 +196,7 @@
 			</div>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true">
 				<a href="#" id="addPlayer" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b">Add</a>
-				<a href="#" id="deletePlayer" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-delete ui-btn-b">Delete</a>
+				<a href="#" id="deletePlayer" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-delete ui-btn-b ui-state-disabled">Delete</a>
 			</div>
 			<a href="#gamePage" class="ui-btn ui-shadow" id="startGame">Start</a>
 
