@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+
+<head>
+	<!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+	<meta http-equiv="Content-Security-Policy" content="default-src &apos;self&apos; data: gap: https://ssl.gstatic.com &apos;unsafe-eval&apos;; style-src &apos;self&apos; &apos;unsafe-inline&apos;; media-src *; img-src &apos;self&apos; data: content:;">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="msapplication-tap-highlight" content="no">
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="js/jquery-1.5.0.mobile.min.css">
+	<style>
+		/* For avoiding title truncation in wp8 */
+
+		.ui-header .ui-title {
+			overflow: visible !important;
+		}
+
+		/* For fixing the absolute position issue for the default cordova gen page*/
+
+		#cjp-accordion1 .app {
+			left: 5px !important;
+			margin: 5px !important;
+			position: relative !important;
+		}
+	</style>
+	<title>Dobble Counter</title>
+	<icon src="../res/icon/logo.png" />
+</head>
+
+<body>
+	<!-- Home Page -->
+	<div data-role="page" id="homePage">
+		<div data-role="header">
+			<div data-role="navbar">
+				<ul>
+					<li>
+						<a href="#homePage" class="ui-btn-active ui-state-persist">Home</a>
+					</li>
+					<li>
+						<a href="#gamePage" class="goToGamePage">Game</a>
+					</li>
+					<li>
+						<a href="#scorePage">Score</a>
+					</li>
+				</ul>
+			</div>
+			<!-- /navbar -->
+		</div>
+
+		<div class="ui-content">
+			<a href="#newGamePage" class="ui-btn ui-shadow" id="newGameBtn">New game</a>
+			<button class="ui-btn ui-shadow">Game history</button>
+		</div>
+		<!-- end page 1 content -->
+
+		<div data-role="footer" data-position="fixed">
+			<h1>Page1</h1>
+		</div>
+		<!-- /footer -->
+	</div>
+	<!-- /Home Page -->
+
+	<!-- Game Page -->
+	<div data-role="page" id="gamePage">
+		<div data-role="header">
+			<div data-role="navbar">
+				<ul>
+					<li>
+						<a href="#homePage">Home</a>
+					</li>
+					<li>
+						<a href="#gamePage" class="ui-btn-active ui-state-persist">Game</a>
+					</li>
+					<li>
+						<a href="#scorePage">Score</a>
+					</li>
+				</ul>
+			</div>
+			<!-- /navbar -->
+		</div>
+
+		<div class="ui-content">
+			<div id="gamePageRoot">
+
+			</div>
+		</div>
+		<!-- end page 2 content -->
+
+		<div data-role="footer" data-position="fixed">
+			<h1>gamePage</h1>
+		</div>
+		<!-- /footer -->
+	</div>
+	<!-- /Game Page -->
+
+	<!-- Score Page -->
+	<div data-role="page" id="scorePage">
+		<div data-role="header">
+			<div data-role="navbar">
+				<ul>
+					<li>
+						<a href="#homePage">Home</a>
+					</li>
+					<li>
+						<a href="#gamePage">Game</a>
+					</li>
+					<li>
+						<a href="#scorePage" class="ui-btn-active ui-state-persist">Score</a>
+					</li>
+				</ul>
+			</div>
+			<!-- /navbar -->
+		</div>
+
+		<div class="ui-content">
+			<p>This is page 3</p>
+		</div>
+		<!-- end page 3 content -->
+
+
+		<div data-role="footer" data-position="fixed">
+			<h1>scorePage</h1>
+		</div>
+		<!-- /footer -->
+	</div>
+	<!-- /Score Page -->
+
+	<!-- New Game Page -->
+	<div data-role="page" id="newGamePage">
+		<div data-role="header">
+			<div data-role="navbar">
+				<ul>
+					<li>
+						<a href="#homePage">Home</a>
+					</li>
+					<li>
+						<a href="#gamePage">Game</a>
+					</li>
+					<li>
+						<a href="#newGamePage">Score</a>
+					</li>
+				</ul>
+			</div>
+			<!-- /navbar -->
+		</div>
+
+		<div class="ui-content">
+			<h3>New Game</h3>
+
+			<div id="playerInputsDiv">
+				<input type="text" class="playerNameInput" data-clear-btn="true" value="Player 1" data-index=1>
+				<input type="text" class="playerNameInput" data-clear-btn="true" value="Player 2" data-index=2>
+				<div class="playerNameInputWrapper ui-screen-hidden">
+					<input type="text" class="playerNameInput" data-clear-btn="true" value="Player 3" data-index=3>
+				</div>
+				<div class="playerNameInputWrapper ui-screen-hidden">
+					<input type="text" class="playerNameInput" data-clear-btn="true" value="Player 4" data-index=4>
+				</div>
+				<div class="playerNameInputWrapper ui-screen-hidden">
+					<input type="text" class="playerNameInput" data-clear-btn="true" value="Player 5" data-index=5>
+				</div>
+				<div class="playerNameInputWrapper ui-screen-hidden">
+					<input type="text" class="playerNameInput" data-clear-btn="true" value="Player 6" data-index=6>
+				</div>
+			</div>
+			<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+				<a href="#" id="addPlayer" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b">Add</a>
+				<a href="#" id="deletePlayer" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-delete ui-btn-b">Delete</a>
+			</div>
+			<a href="#gamePage" class="ui-btn ui-shadow" id="startGame">Start</a>
+
+		</div>
+		<!-- end page 3 content -->
+		<div data-role="footer" data-position="fixed">
+			<h1>newGamePage</h1>
+		</div>
+		<!-- /footer -->
+	</div>
+	<!-- /New Game Page -->
+
+	<!-- scripts -->
+	<script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" src="js/jquery-1.11.1.min.js" id="cordova-jquery"></script>
+	<script type="text/javascript" id="jqm-trans-disable">
+		/* For having a faster transition */
+		$(document).on("mobileinit", function () {
+			$.mobile.defaultPageTransition = "none";
+			$.mobile.defaultDialogTransition = "none";
+		});
+	</script>
+	<script type="text/javascript" src="js/jquery-1.5.0.mobile.min.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+</body>
+
+</html>

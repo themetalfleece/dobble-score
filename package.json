@@ -1,0 +1,28 @@
+{
+  "name": "com.themetalfleece.dobblescore",
+  "displayName": "Dobble Score",
+  "version": "1.0.0",
+  "description": "A score keeper for the game 'Dobble'",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "TheMetalFleece",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "cordova-browser": "^5.0.1",
+    "cordova-plugin-file": "^5.0.0",
+    "cordova-plugin-whitelist": "^1.3.3",
+    "cordova-promise-fs": "^1.2.5"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-file": {}
+    },
+    "platforms": [
+      "browser"
+    ]
+  }
+}
