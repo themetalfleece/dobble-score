@@ -105,12 +105,27 @@ var app = {
                     $('#gamePageCurrentGameDiv').removeClass('ui-screen-hidden');
 
                     $('#gamePageCurrentGameName').text(settings.game.modes[currentRound.mode]);
+                    $(`#gamePageCurrentGameDiv .currentMode[data-gameMode="${currentRound.mode}"]`).removeClass('ui-screen-hidden');
+
+                    if (currentRound.mode === 'tower') {
+                        for (let playerIndex = 0; playerIndex < settings.game.players.max; playerIndex++) {
+                            let $playerScoreContainer = $(`#gamePageCurrentGameDiv .currentMode[data-gameMode="tower"] .playerScoreContainer[data-index=${playerIndex}]`);
+                            if (playerIndex < gameState.players.length) {
+                                $playerScoreContainer.find('.playerName').first().text(gameState.players[playerIndex].name);
+                                $playerScoreContainer.find('.towerScore').first().val(0);
+                                $playerScoreContainer.removeClass('ui-screen-hidden');
+                            }
+                            else {
+                                $playerScoreContainer.addClass('ui-screen-hidden');
+                            };
+                        };
+                    }
                 }
             };
 
             $('.nextGameChoice').click(function () {
-                let gameMode = $(this).attr('data-gameMode');
-                gameState.rounds.push({ mode: gameMode, active: true, score: {} })
+                let mode = $(this).attr('data-mode');
+                gameState.rounds.push({ mode: mode, active: true, score: {} })
                 renderGamePage();
                 writeGameFile();
             });

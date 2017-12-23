@@ -112,25 +112,59 @@
 					Choose the next game
 					<ul data-role="listview" data-inset="true">
 						<li>
-							<a href="#" class="nextGameChoice" data-gameMode="tower">The Towering Inferno</a>
+							<a href="#" class="nextGameChoice" data-mode="tower">The Towering Inferno</a>
 						</li>
 						<li>
-							<a href="#" class="nextGameChoice" data-gameMode="well">The Well</a>
+							<a href="#" class="nextGameChoice" data-mode="well">The Well</a>
 						</li>
 						<li>
-							<a href="#" class="nextGameChoice" data-gameMode="potato">The Hot Potato</a>
+							<a href="#" class="nextGameChoice" data-mode="potato">The Hot Potato</a>
 						</li>
 						<li>
-							<a href="#" class="nextGameChoice" data-gameMode="catch">Gotta catch them all!</a>
+							<a href="#" class="nextGameChoice" data-mode="catch">Gotta catch them all!</a>
 						</li>
 						<li>
-							<a href="#" class="nextGameChoice" data-gameMode="gift">The Poisoned Gift</a>
+							<a href="#" class="nextGameChoice" data-mode="gift">The Poisoned Gift</a>
 						</li>
 					</ul>
 				</div>
 				<div id="gamePageCurrentGameDiv" class="ui-screen-hidden">
 					You are playing
 					<span id="gamePageCurrentGameName"></span>
+					<hr/>
+					<div class="currentMode ui-screen-hidden" data-gameMode="tower">
+						How many cards did each player collect?
+						<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=0>
+							<label class='playerName'></label>
+							<input type="text" data-role="spinbox" class="towerScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
+							/>
+						</div>
+						<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=1>
+							<label class='playerName'></label>
+							<input type="text" data-role="spinbox" class="towerScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
+							/>
+						</div>
+						<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=2>
+							<label class='playerName'></label>
+							<input type="text" data-role="spinbox" class="towerScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
+							/>
+						</div>
+						<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=3>
+							<label class='playerName'></label>
+							<input type="text" data-role="spinbox" class="towerScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
+							/>
+						</div>
+						<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=4>
+							<label class='playerName'></label>
+							<input type="text" data-role="spinbox" class="towerScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
+							/>
+						</div>
+						<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=5>
+							<label class='playerName'></label>
+							<input type="text" data-role="spinbox" class="towerScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
+							/>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -218,8 +252,8 @@
 				</div>
 			</div>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-				<a href="#" id="addPlayer" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b">Add</a>
-				<a href="#" id="deletePlayer" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-delete ui-btn-b ui-state-disabled">Delete</a>
+				<a href="#" id="addPlayer" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-a">Add</a>
+				<a href="#" id="deletePlayer" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-delete ui-btn-a ui-state-disabled">Delete</a>
 			</div>
 			<a href="#gamePage" class="ui-btn ui-shadow" id="startGame">Start</a>
 
@@ -244,6 +278,7 @@
 	</script>
 	<script type="text/javascript" src="js/jquery-1.5.0.mobile.min.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/jqm-spinbox.js"></script>
 </body>
 
 </html>
