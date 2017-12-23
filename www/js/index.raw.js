@@ -20,13 +20,15 @@
 const CordovaPromiseFS = require('cordova-promise-fs');
 const settings = require('../../settings');
 
-let gameState;
+let logDir = settings.logging.directory;
+
 let fs = CordovaPromiseFS({
     persistent: true, // or false
     storageSize: 2 * 1024 * 1024, // storage size in bytes (=2MB)
     concurrency: 3, // how many concurrent uploads/downloads?
     Promise: require('bluebird') // Your favorite Promise/A+ library!
 });
+let gameState, currentGameFile;
 
 var app = {
     // Application Constructor
@@ -34,14 +36,20 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
     },
 
-    // deviceready Event Handler
-    //
-    // Bind any cordova events here. Common events are:
-    // 'pause', 'resume', etc.
+    // deviceready Event Handler. Bind any cordova events here. Common events are: 'pause', 'resume', etc.
     onDeviceReady: function () {
         this.receivedEvent('deviceready');
 
         $(document).ready(function () {
+
+            // ensure the logging directory
+            fs.ensure(logDir)
+                .then(() => {
+                    return fs.list(logDir)
+                })
+                .then((files) => {
+                    console.log(files)
+                })
 
             $('#newGamePage #startGame').click(function () {
                 gameState = { players: [] };
@@ -53,6 +61,13 @@ var app = {
                     };
                 });
                 console.log(gameState);
+
+                // create the file and write to it
+                fs.create(`${logDir}${getDateString()}`)
+                    .then((file) => {
+                        currentGameFile = file;
+                        return fs.write(currentGameFile.fullPath, JSON.stringify(gameState));
+                    })
             });
 
             $('#newGamePage #deletePlayer').click(function () {
@@ -82,6 +97,10 @@ var app = {
     receivedEvent: function (id) {
         console.log('Received Event: ' + id);
     }
+};
+
+function getDateString(date = new Date()) {
+    return date.toISOString();
 };
 
 app.initialize();
