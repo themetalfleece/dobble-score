@@ -20,7 +20,7 @@
 const CordovaPromiseFS = require('cordova-promise-fs');
 const settings = require('../../settings');
 
-let logDir = settings.logging.directory;
+const logDir = settings.logging.directory;
 
 let fs = CordovaPromiseFS({
     persistent: true, // or false
@@ -51,25 +51,6 @@ var app = {
                     console.log(files)
                 })
 
-            $('#newGamePage #startGame').click(function () {
-                gameState = { players: [] };
-                $('#newGamePage .playerNameInputWrapper').each((index, element) => {
-                    let $wrapper = $(element);
-                    if (!$wrapper.hasClass('ui-screen-hidden')) {
-                        let playerName = $wrapper.find('.playerNameInput').first().val();
-                        gameState.players.push({ name: playerName });
-                    };
-                });
-                console.log(gameState);
-
-                // create the file and write to it
-                fs.create(`${logDir}${getDateString()}`)
-                    .then((file) => {
-                        currentGameFile = file;
-                        return fs.write(currentGameFile.fullPath, JSON.stringify(gameState));
-                    })
-            });
-
             $('#newGamePage #deletePlayer').click(function () {
                 let $deletePlayerBtn = $(this);
                 $('.playerNameInputWrapper').not('.ui-screen-hidden').last().addClass('ui-screen-hidden');
@@ -89,6 +70,51 @@ var app = {
                 };
                 $('#newGamePage #deletePlayer').removeClass('ui-state-disabled');
             });
+
+            $('#newGamePage #startGame').click(function () {
+                gameState = {
+                    players: [],
+                    rounds: []
+                };
+                $('#newGamePage .playerNameInputWrapper').each((index, element) => {
+                    let $wrapper = $(element);
+                    if (!$wrapper.hasClass('ui-screen-hidden')) {
+                        let playerName = $wrapper.find('.playerNameInput').first().val();
+                        gameState.players.push({ name: playerName, score: 0 });
+                    };
+                });
+
+                renderGamePage();
+
+                // create the file and write to it
+                fs.create(`${logDir}${getDateString()}`)
+                    .then((file) => {
+                        currentGameFile = file;
+                        return writeGameFile();
+                    })
+            });
+
+            function renderGamePage() {
+                if (gameState.rounds.length === 0 || !gameState.rounds[gameState.rounds.length - 1].active) {
+                    $('#gamePageChooseNextDiv').removeClass('ui-screen-hidden');
+                    $('#gamePageCurrentGameDiv').addClass('ui-screen-hidden');
+                }
+                else {
+                    let currentRound = gameState.rounds[gameState.rounds.length - 1];
+                    $('#gamePageChooseNextDiv').addClass('ui-screen-hidden');
+                    $('#gamePageCurrentGameDiv').removeClass('ui-screen-hidden');
+
+                    $('#gamePageCurrentGameName').text(settings.game.modes[currentRound.mode]);
+                }
+            };
+
+            $('.nextGameChoice').click(function () {
+                let gameMode = $(this).attr('data-gameMode');
+                gameState.rounds.push({ mode: gameMode, active: true, score: {} })
+                renderGamePage();
+                writeGameFile();
+            });
+
         });
 
     },
@@ -101,6 +127,10 @@ var app = {
 
 function getDateString(date = new Date()) {
     return date.toISOString();
+};
+
+function writeGameFile(gameFile = currentGameFile, state = gameState) {
+    return fs.write(gameFile.fullPath, JSON.stringify(state));
 };
 
 app.initialize();

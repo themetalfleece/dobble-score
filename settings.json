@@ -3,6 +3,13 @@
         "players": {
             "min": 2,
             "max": 6
+        },
+        "modes": {
+            "tower": "The Towering Inferno",
+            "well": "The Well",
+            "potato": "The Hot Potato",
+            "catch": "Gotta catch them all!",
+            "gift": "The Poisoned Gift"
         }
     },
     "logging": {

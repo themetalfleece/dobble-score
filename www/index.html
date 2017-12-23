@@ -108,7 +108,30 @@
 
 		<div class="ui-content">
 			<div id="gamePageRoot">
-
+				<div id="gamePageChooseNextDiv" class="ui-screen-hidden">
+					Choose the next game
+					<ul data-role="listview" data-inset="true">
+						<li>
+							<a href="#" class="nextGameChoice" data-gameMode="tower">The Towering Inferno</a>
+						</li>
+						<li>
+							<a href="#" class="nextGameChoice" data-gameMode="well">The Well</a>
+						</li>
+						<li>
+							<a href="#" class="nextGameChoice" data-gameMode="potato">The Hot Potato</a>
+						</li>
+						<li>
+							<a href="#" class="nextGameChoice" data-gameMode="catch">Gotta catch them all!</a>
+						</li>
+						<li>
+							<a href="#" class="nextGameChoice" data-gameMode="gift">The Poisoned Gift</a>
+						</li>
+					</ul>
+				</div>
+				<div id="gamePageCurrentGameDiv" class="ui-screen-hidden">
+					You are playing
+					<span id="gamePageCurrentGameName"></span>
+				</div>
 			</div>
 		</div>
 		<!-- end page 2 content -->
