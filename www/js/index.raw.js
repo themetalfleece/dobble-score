@@ -71,14 +71,16 @@ var app = {
                         $list.html('');
                         for (let i = 0; i < files.length; i++) {
                             let file = files[i];
-                            $list.append(`<li>
-                            <a href="#" class="gameHistoryListItem" 
-                            data-fullPath="${file.fullPath}">
+                            $list.append(`<li data-fullPath="${file.fullPath}">
+                            <a href="#" class="gameHistoryListItem">
                             ${file.name.replace('T', ' ').split('.')[0]}
-                            </a></li>`);
+                            </a>
+                            <a href="#" class="gameHistoryListItemDelete">Delete</a>
+                            </li>`);
                         };
                         $list.listview('refresh');
                         $list.on('click', '.gameHistoryListItem', setGameStateByDataFullPath);
+                        $list.on('click', '.gameHistoryListItemDelete', deleteGameHistoryListItem);
                     });
             });
 
@@ -92,8 +94,14 @@ var app = {
                     });
             };
 
+            function deleteGameHistoryListItem() {
+                let fullPath = $(this).parent().attr('data-fullPath');
+                fs.remove(fullPath);
+                $(this).parent().remove();
+            };
+
             function setGameStateByDataFullPath(event, ui) {
-                let fullPath = $(this).attr('data-fullPath');
+                let fullPath = $(this).parent().attr('data-fullPath');
                 setGameStateByFileFullPath(fullPath);
             };
 
