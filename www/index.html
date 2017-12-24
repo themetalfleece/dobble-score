@@ -76,7 +76,7 @@
 
 		<div class="ui-content">
 			<a href="#newGamePage" class="ui-btn ui-shadow" id="newGameBtn">New game</a>
-			<button class="ui-btn ui-shadow">Game history</button>
+			<a href="#gameHistoryPage" class="ui-btn ui-shadow" id="gameHistoryBtn">Game history</a>
 		</div>
 		<!-- end page 1 content -->
 
@@ -223,10 +223,10 @@
 						<a href="#homePage">Home</a>
 					</li>
 					<li>
-						<a href="#gamePage">Game</a>
+						<a href="#gamePage" class="goToGamePage">Game</a>
 					</li>
 					<li>
-						<a href="#newGamePage">Score</a>
+						<a href="#scorePage">Score</a>
 					</li>
 				</ul>
 			</div>
@@ -270,6 +270,53 @@
 		<!-- /footer -->
 	</div>
 	<!-- /New Game Page -->
+
+	<!-- Game History Page -->
+	<div data-role="page" id="gameHistoryPage">
+		<div data-role="header">
+			<div data-role="navbar">
+				<ul>
+					<li>
+						<a href="#homePage">Home</a>
+					</li>
+					<li>
+						<a href="#gamePage" class="goToGamePage">Game</a>
+					</li>
+					<li>
+						<a href="#scorePage">Score</a>
+					</li>
+				</ul>
+			</div>
+			<!-- /navbar -->
+		</div>
+
+		<div class="ui-content">
+			<h3>Game History</h3>
+			<div id="gameHistoryRoot">
+				<ul data-role="listview" id="gameHistoryList">
+					<li>
+						<a href="#">Acura</a>
+					</li>
+					<li>
+						<a href="#">Audi</a>
+					</li>
+					<li>
+						<a href="#">BMW</a>
+					</li>
+					<li>
+						<a href="#">Cadillac</a>
+					</li>
+					<li>
+						<a href="#">Ferrari</a>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+		<!-- end page 3 content -->
+		<!-- /footer -->
+	</div>
+	<!-- /Game History Page -->
 
 	<!-- scripts -->
 	<script type="text/javascript" src="cordova.js"></script>

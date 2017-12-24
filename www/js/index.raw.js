@@ -28,7 +28,7 @@ let fs = CordovaPromiseFS({
     concurrency: 3, // how many concurrent uploads/downloads?
     Promise: require('bluebird') // Your favorite Promise/A+ library!
 });
-let gameState, currentGameFile;
+let gameState, currentGameFileFullPath;
 
 var app = {
     // Application Constructor
@@ -48,7 +48,9 @@ var app = {
                     return fs.list(logDir)
                 })
                 .then((files) => {
-                    console.log(files)
+                    if (files.length !== 0) {
+                        setGameStateByFileFullPath(files[0]);
+                    };
                 });
 
             $('.goToGamePage').click(function () {
@@ -61,6 +63,39 @@ var app = {
                     renderGamePage();
                 };
             });
+
+            $('#gameHistoryBtn').click(function () {
+                return fs.list(logDir, 'e')
+                    .then((files) => {
+                        let $list = $('#gameHistoryList');
+                        $list.html('');
+                        for (let i = 0; i < files.length; i++) {
+                            let file = files[i];
+                            $list.append(`<li>
+                            <a href="#" class="gameHistoryListItem" 
+                            data-fullPath="${file.fullPath}">
+                            ${file.name.replace('T', ' ').split('.')[0]}
+                            </a></li>`);
+                        };
+                        $list.listview('refresh');
+                        $list.on('click', '.gameHistoryListItem', setGameStateByDataFullPath);
+                    });
+            });
+
+            function setGameStateByFileFullPath(fullPath) {
+                fs.read(fullPath)
+                    .then((state) => {
+                        gameState = JSON.parse(state);
+                        currentGameFileFullPath = fullPath;
+                        renderScorePage();
+                        window.location.hash = "#scorePage";
+                    });
+            };
+
+            function setGameStateByDataFullPath(event, ui) {
+                let fullPath = $(this).attr('data-fullPath');
+                setGameStateByFileFullPath(fullPath);
+            };
 
             $('#newGamePage #deletePlayer').click(function () {
                 let $deletePlayerBtn = $(this);
@@ -100,7 +135,7 @@ var app = {
                 // create the file and write to it
                 fs.create(`${logDir}${getDateString()}`)
                     .then((file) => {
-                        currentGameFile = file;
+                        currentGameFileFullPath = file.fullPath;
                         return writeGameFile();
                     })
             });
@@ -162,6 +197,7 @@ var app = {
                 };
                 currentRound.active = false;
                 renderScorePage();
+                writeGameFile();
             });
 
         });
@@ -178,8 +214,8 @@ function getDateString(date = new Date()) {
     return date.toISOString();
 };
 
-function writeGameFile(gameFile = currentGameFile, state = gameState) {
-    return fs.write(gameFile.fullPath, JSON.stringify(state));
+function writeGameFile(gameFullPath = currentGameFileFullPath, state = gameState) {
+    return fs.write(gameFullPath, JSON.stringify(state));
 };
 
 app.initialize();
