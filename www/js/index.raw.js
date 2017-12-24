@@ -87,7 +87,7 @@ var app = {
                             let file = files[i];
                             $list.append(`<li data-fullPath="${file.fullPath}">
                             <a href="#" class="gameHistoryListItem">
-                            ${file.name.replace('T', ' ').split('.')[0]}
+                            ${prettifyFileName(file.name)}
                             </a>
                             <a href="#" class="gameHistoryListItemDelete">Delete</a>
                             </li>`);
@@ -192,7 +192,8 @@ var app = {
                 renderGamePage();
 
                 // create the file and write to it
-                fs.create(`${logDir}${getDateString()}`)
+                let fileName = `${getDateString()}.${gameState.players.length}`;
+                fs.create(`${logDir}${fileName}`)
                     .then((file) => {
                         currentGameFileFullPath = file.fullPath;
                         return writeGameFile();
@@ -236,8 +237,13 @@ function getDateString(date = new Date()) {
     return date.toISOString();
 };
 
+
 function writeGameFile(gameFullPath = currentGameFileFullPath, state = gameState) {
     return fs.write(gameFullPath, JSON.stringify(state));
+};
+
+function prettifyFileName(name) {
+    return `${name.split('.')[0].replace('T', ' ')} - ${name.split('.')[2]} Players`;
 };
 
 app.initialize();
