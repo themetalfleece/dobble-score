@@ -129,8 +129,11 @@
 				</div>
 				<div id="gamePageCurrentGameDiv" class="ui-screen-hidden">
 					You are playing
-					<span id="gamePageCurrentGameName"></span>
+					<b>
+						<span id="gamePageCurrentGameName"></span>
+					</b>
 					<hr/>
+					<!-- tower -->
 					<div class="currentMode ui-screen-hidden" data-gameMode="tower">
 						How many cards did each player collect?
 						<div class="playerScores">
@@ -165,7 +168,17 @@
 								/>
 							</div>
 						</div>
-						<a href="#scorePage" class="ui-btn ui-shadow" id="submitTowerScoreInput">Done</a>
+						<a class="ui-btn ui-shadow" id="submitTowerScoreInput">Done</a>
+					</div>
+					<!-- well -->
+					<div class="currentMode ui-screen-hidden" data-gameMode="well">
+						<label for="towerFirstPlayerInput" class="select">Who was the first player who got rid of all his or her cards?</label>
+						<select name="towerFirstPlayerInput" id="towerFirstPlayerInput">
+						</select>
+						<label for="towerLastPlayerInput" class="select">Who was the last player who got rid of all his or her cards?</label>
+						<select name="towerLastPlayerInput" id="towerLastPlayerInput">
+						</select>
+						<a class="ui-btn ui-shadow" id="submitWellScoreInput">Done</a>
 					</div>
 				</div>
 			</div>

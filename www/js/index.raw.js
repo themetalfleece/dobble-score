@@ -138,9 +138,10 @@ var app = {
                     $('#gamePageCurrentGameDiv').removeClass('ui-screen-hidden');
 
                     $('#gamePageCurrentGameName').text(settings.game.modes[currentRound.mode]);
-                    $(`#gamePageCurrentGameDiv .currentMode[data-gameMode="${currentRound.mode}"]`).removeClass('ui-screen-hidden');
 
-                    // The Inferno Tower
+                    hideNonCurrentModes(currentRound.mode);
+
+                    // handler for each game mode
                     if (currentRound.mode === 'tower') {
                         for (let playerIndex = 0; playerIndex < settings.game.players.max; playerIndex++) {
                             let $playerScoreContainer = $(`#gamePageCurrentGameDiv .currentMode[data-gameMode="tower"] .playerScoreContainer[data-index=${playerIndex}]`);
@@ -154,7 +155,24 @@ var app = {
                             };
                         };
                     }
+                    else if (currentRound.mode === 'well') {
+                        let $selectFirst = $('#towerFirstPlayerInput'), $selectLast = $('#towerLastPlayerInput');
+                        $selectFirst.html('');
+                        $selectLast.html('');
+                        for (let playerIndex = 0; playerIndex < gameState.players.length; playerIndex++) {
+                            let player = gameState.players[playerIndex];
+                            $selectFirst.append(`<option value=${playerIndex}>${player.name}</option>`);
+                            $selectLast.append(`<option value=${playerIndex}>${player.name}</option>`);
+                        };
+                        $selectFirst.selectmenu().selectmenu('refresh');
+                        $selectLast.selectmenu().selectmenu('refresh');
+                    }
                 }
+            };
+
+            function hideNonCurrentModes(mode) {
+                $(`#gamePageCurrentGameDiv .currentMode`).not(`[data-gameMode="${mode}"]`).addClass('ui-screen-hidden');
+                $(`#gamePageCurrentGameDiv .currentMode[data-gameMode="${mode}"]`).removeClass('ui-screen-hidden');
             };
 
             // tower
@@ -174,6 +192,36 @@ var app = {
                 };
                 currentRound.active = false;
                 renderScorePage();
+                window.location.hash = "#scorePage";
+                writeGameFile();
+            });
+            // well
+            $('#submitWellScoreInput').click(function () {
+                let firstPlayerIndex = parseInt($('#towerFirstPlayerInput option:selected').val());
+                let lastPlayerIndex = parseInt($('#towerLastPlayerInput option:selected').val());
+                if (firstPlayerIndex === lastPlayerIndex) {
+                    alert('The first and last players cannot be the same');
+                    return;
+                };
+                let currentRound = gameState.rounds[gameState.rounds.length - 1];
+
+                for (let playerIndex = 0; playerIndex < gameState.players.length; playerIndex++) {
+                    if (playerIndex === firstPlayerIndex) {
+                        currentRound.score[playerIndex] = 10;
+                    }
+                    else if (playerIndex === lastPlayerIndex) {
+                        currentRound.score[playerIndex] = -20;
+                    }
+                    else {
+                        currentRound.score[playerIndex] = 0;
+                    };
+
+                    gameState.players[playerIndex].score += currentRound.score[playerIndex];
+                };
+
+                currentRound.active = false;
+                renderScorePage();
+                window.location.hash = "#scorePage";
                 writeGameFile();
             });
 
