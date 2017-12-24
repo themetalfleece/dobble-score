@@ -54,6 +54,14 @@ var app = {
                 });
 
             /* general */
+            function renderScorePage() {
+                $('#scorePageRoot').html(JSON.stringify(gameState.players));
+            };
+
+            $('.goToScorePage').click(function () {
+                renderScorePage();
+            });
+
             $('.goToGamePage').click(function () {
                 renderGamePage();
             });
@@ -66,10 +74,6 @@ var app = {
                         renderScorePage();
                         window.location.hash = "#scorePage";
                     });
-            };
-
-            function renderScorePage() {
-                $('#scorePageRoot').html(JSON.stringify(gameState.players));
             };
             /* /general */
 
@@ -159,66 +163,67 @@ var app = {
                 writeGameFile();
             });
 
-        });
-        /* /Game Page */
+            /* /Game Page */
 
-        /* New Game Page */
-        $('#newGamePage #addPlayer').click(function () {
-            let $addPlayerBtn = $(this);
-            $('.playerNameInputWrapper.ui-screen-hidden').first().removeClass('ui-screen-hidden');
-            let currentPlayers = $('.playerNameInputWrapper').not('.ui-screen-hidden').length;
-            if (currentPlayers === settings.game.players.max) {
-                $addPlayerBtn.addClass('ui-state-disabled');
-            };
-            $('#newGamePage #deletePlayer').removeClass('ui-state-disabled');
-        });
-
-        $('#newGamePage #startGame').click(function () {
-            gameState = {
-                players: [],
-                rounds: []
-            };
-            $('#newGamePage .playerNameInputWrapper').each((index, element) => {
-                let $wrapper = $(element);
-                if (!$wrapper.hasClass('ui-screen-hidden')) {
-                    let playerName = $wrapper.find('.playerNameInput').first().val();
-                    gameState.players.push({ name: playerName, score: 0 });
+            /* New Game Page */
+            $('#newGamePage #addPlayer').click(function () {
+                let $addPlayerBtn = $(this);
+                $('.playerNameInputWrapper.ui-screen-hidden').first().removeClass('ui-screen-hidden');
+                let currentPlayers = $('.playerNameInputWrapper').not('.ui-screen-hidden').length;
+                if (currentPlayers === settings.game.players.max) {
+                    $addPlayerBtn.addClass('ui-state-disabled');
                 };
+                $('#newGamePage #deletePlayer').removeClass('ui-state-disabled');
             });
 
-            renderGamePage();
+            $('#newGamePage #startGame').click(function () {
+                gameState = {
+                    players: [],
+                    rounds: []
+                };
+                $('#newGamePage .playerNameInputWrapper').each((index, element) => {
+                    let $wrapper = $(element);
+                    if (!$wrapper.hasClass('ui-screen-hidden')) {
+                        let playerName = $wrapper.find('.playerNameInput').first().val();
+                        gameState.players.push({ name: playerName, score: 0 });
+                    };
+                });
 
-            // create the file and write to it
-            fs.create(`${logDir}${getDateString()}`)
-                .then((file) => {
-                    currentGameFileFullPath = file.fullPath;
-                    return writeGameFile();
-                })
-        });
-        /* /New Game Page */
+                renderGamePage();
 
-        /* Game History Page */
-        function deleteGameHistoryListItem() {
-            let fullPath = $(this).parent().attr('data-fullPath');
-            fs.remove(fullPath);
-            $(this).parent().remove();
-        };
+                // create the file and write to it
+                fs.create(`${logDir}${getDateString()}`)
+                    .then((file) => {
+                        currentGameFileFullPath = file.fullPath;
+                        return writeGameFile();
+                    })
+            });
+            /* /New Game Page */
 
-        function setGameStateByDataFullPath(event, ui) {
-            let fullPath = $(this).parent().attr('data-fullPath');
-            setGameStateByFileFullPath(fullPath);
-        };
-
-        $('#newGamePage #deletePlayer').click(function () {
-            let $deletePlayerBtn = $(this);
-            $('.playerNameInputWrapper').not('.ui-screen-hidden').last().addClass('ui-screen-hidden');
-            let currentPlayers = $('.playerNameInputWrapper').not('.ui-screen-hidden').length;
-            if (currentPlayers === settings.game.players.min) {
-                $deletePlayerBtn.addClass('ui-state-disabled');
+            /* Game History Page */
+            function deleteGameHistoryListItem() {
+                let fullPath = $(this).parent().attr('data-fullPath');
+                fs.remove(fullPath);
+                $(this).parent().remove();
             };
-            $('#newGamePage #addPlayer').removeClass('ui-state-disabled');
+
+            function setGameStateByDataFullPath(event, ui) {
+                let fullPath = $(this).parent().attr('data-fullPath');
+                setGameStateByFileFullPath(fullPath);
+            };
+
+            $('#newGamePage #deletePlayer').click(function () {
+                let $deletePlayerBtn = $(this);
+                $('.playerNameInputWrapper').not('.ui-screen-hidden').last().addClass('ui-screen-hidden');
+                let currentPlayers = $('.playerNameInputWrapper').not('.ui-screen-hidden').length;
+                if (currentPlayers === settings.game.players.min) {
+                    $deletePlayerBtn.addClass('ui-state-disabled');
+                };
+                $('#newGamePage #addPlayer').removeClass('ui-state-disabled');
+            });
+            /* /Game History Page */
+
         });
-        /* /Game History Page */
     },
 
     // Update DOM on a Received Event
