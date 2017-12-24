@@ -55,7 +55,18 @@ var app = {
 
             /* general */
             function renderScorePage() {
-                $('#scorePageRoot').html(JSON.stringify(gameState.players));
+                let $list = $('#scorePageList');
+                $list.html('');
+                let orderedPlayers = Array.from(gameState.players);
+                orderedPlayers.sort(function (a, b) { return a.score < b.score });
+                for (let i = 0; i < orderedPlayers.length; i++) {
+                    let player = orderedPlayers[i];
+                    $list.append(`<li>
+                    ${player.name}
+                    <span class="ui-li-count">${player.score}
+                    </span></li>`);
+                };
+                $list.listview().listview('refresh');
             };
 
             $('.goToScorePage').click(function () {
@@ -92,8 +103,7 @@ var app = {
                             <a href="#" class="gameHistoryListItemDelete">Delete</a>
                             </li>`);
                         };
-                        $list.listview('refresh');
-
+                        $list.listview().listview('refresh');
                     });
             });
             /* /Home Page */
