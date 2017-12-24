@@ -128,6 +128,7 @@ var app = {
             });
 
             function renderGamePage() {
+                $('.nextGameChoice').removeClass('ui-btn-b');
                 if (gameState.rounds.length === 0 || !gameState.rounds[gameState.rounds.length - 1].active) {
                     $('#gamePageChooseNextDiv').removeClass('ui-screen-hidden');
                     $('#gamePageCurrentGameDiv').addClass('ui-screen-hidden');
@@ -223,6 +224,12 @@ var app = {
                 renderScorePage();
                 window.location.hash = "#scorePage";
                 writeGameFile();
+            });
+
+            // suggest random button
+            $('#randomGameSuggest').click(function () {
+                $('.nextGameChoice').removeClass('ui-btn-b');
+                $('.nextGameChoice').eq(Math.floor(Math.random() * (5))).addClass('ui-btn-b');
             });
 
             /* /Game Page */
