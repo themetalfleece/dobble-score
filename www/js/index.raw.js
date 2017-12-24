@@ -82,9 +82,14 @@ var app = {
                     .then((state) => {
                         gameState = JSON.parse(state);
                         currentGameFileFullPath = fullPath;
+                        setCurrentGameFooter();
                         renderScorePage();
                         window.location.hash = "#scorePage";
                     });
+            };
+
+            function setCurrentGameFooter() {
+                $('.currentGameFooter').text(`Current Game: ${prettifyFileName(currentGameFileFullPath)}`);
             };
             /* /general */
 
@@ -205,6 +210,7 @@ var app = {
                 fs.create(`${logDir}${fileName}`)
                     .then((file) => {
                         currentGameFileFullPath = file.fullPath;
+                        setCurrentGameFooter();
                         return writeGameFile();
                     })
             });
@@ -249,13 +255,16 @@ function getDateString(date = new Date()) {
     return date.toISOString();
 };
 
-
 function writeGameFile(gameFullPath = currentGameFileFullPath, state = gameState) {
     return fs.write(gameFullPath, JSON.stringify(state));
 };
 
 function prettifyFileName(name) {
-    return `${name.split('.')[0].replace('T', ' ')} - ${name.split('.')[2]} Players`;
+    let prettyName = `${name.split('.')[0].replace('T', ' ')} - ${name.split('.')[2]} Players`;
+    if (prettyName.lastIndexOf('/') !== -1) {
+        prettyName = prettyName.substring(prettyName.lastIndexOf('/') + 1);
+    };
+    return prettyName;
 };
 
 app.initialize();

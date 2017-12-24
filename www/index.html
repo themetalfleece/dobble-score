@@ -80,8 +80,7 @@
 		</div>
 		<!-- end page 1 content -->
 
-		<div data-role="footer" data-position="fixed">
-			<h1>Page1</h1>
+		<div data-role="footer" class="currentGameFooter" data-position="fixed">
 		</div>
 		<!-- /footer -->
 	</div>
@@ -173,8 +172,7 @@
 		</div>
 		<!-- end page 2 content -->
 
-		<div data-role="footer" data-position="fixed">
-			<h1>gamePage</h1>
+		<div data-role="footer" class="currentGameFooter" data-position="fixed">
 		</div>
 		<!-- /footer -->
 	</div>
@@ -208,8 +206,7 @@
 		<!-- end page 3 content -->
 
 
-		<div data-role="footer" data-position="fixed">
-			<h1>scorePage</h1>
+		<div data-role="footer" class="currentGameFooter" data-position="fixed">
 		</div>
 		<!-- /footer -->
 	</div>
@@ -235,7 +232,9 @@
 		</div>
 
 		<div class="ui-content">
-			<h3>New Game</h3>
+			<div style="text-align:center;">
+				<h3>New Game</h3>
+			</div>
 
 			<div id="playerInputsDiv">
 				<div class="playerNameInputWrapper">
@@ -259,14 +258,13 @@
 			</div>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true">
 				<a href="#" id="addPlayer" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-a">Add</a>
-				<a href="#" id="deletePlayer" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-delete ui-btn-a ui-state-disabled">Delete</a>
+				<a href="#" id="deletePlayer" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-minus ui-btn-a ui-state-disabled">Remove</a>
 			</div>
 			<a href="#gamePage" class="ui-btn ui-shadow" id="startGame">Start</a>
 
 		</div>
 		<!-- end page 3 content -->
-		<div data-role="footer" data-position="fixed">
-			<h1>newGamePage</h1>
+		<div data-role="footer" class="currentGameFooter" data-position="fixed">
 		</div>
 		<!-- /footer -->
 	</div>
@@ -292,7 +290,7 @@
 		</div>
 
 		<div class="ui-content">
-			<div data-role="controlgroup" data-type="horizontal" style="text-align:center;">
+			<div style="text-align:center;">
 				<h3>Game History</h3>
 			</div>
 			<div id="gameHistoryRoot">
@@ -302,6 +300,8 @@
 
 		</div>
 		<!-- end page 3 content -->
+		<div data-role="footer" class="currentGameFooter" data-position="fixed">
+		</div>
 		<!-- /footer -->
 	</div>
 	<!-- /Game History Page -->
