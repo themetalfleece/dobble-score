@@ -93,8 +93,7 @@ var app = {
                             </li>`);
                         };
                         $list.listview('refresh');
-                        $list.on('click', '.gameHistoryListItem', setGameStateByDataFullPath);
-                        $list.on('click', '.gameHistoryListItemDelete', deleteGameHistoryListItem);
+
                     });
             });
             /* /Home Page */
@@ -202,6 +201,9 @@ var app = {
             /* /New Game Page */
 
             /* Game History Page */
+            $('#gameHistoryList').on('click', '.gameHistoryListItem', setGameStateByDataFullPath);
+            $('#gameHistoryList').on('click', '.gameHistoryListItemDelete', deleteGameHistoryListItem);
+
             function deleteGameHistoryListItem() {
                 let fullPath = $(this).parent().attr('data-fullPath');
                 fs.remove(fullPath);
