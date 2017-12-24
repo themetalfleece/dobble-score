@@ -10,7 +10,9 @@
   "author": "TheMetalFleece",
   "license": "Apache-2.0",
   "dependencies": {
+    "android": "0.0.8",
     "bluebird": "^3.5.1",
+    "cordova-android": "^7.0.0",
     "cordova-browser": "^5.0.2",
     "cordova-plugin-file": "^5.0.0",
     "cordova-plugin-whitelist": "^1.3.3",
@@ -22,6 +24,7 @@
       "cordova-plugin-file": {}
     },
     "platforms": [
+      "android",
       "browser"
     ]
   }

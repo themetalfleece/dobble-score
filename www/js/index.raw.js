@@ -252,7 +252,7 @@ var app = {
 };
 
 function getDateString(date = new Date()) {
-    return date.toISOString();
+    return date.toISOString().replace(/:/g, 'U');
 };
 
 function writeGameFile(gameFullPath = currentGameFileFullPath, state = gameState) {
@@ -260,7 +260,7 @@ function writeGameFile(gameFullPath = currentGameFileFullPath, state = gameState
 };
 
 function prettifyFileName(name) {
-    let prettyName = `${name.split('.')[0].replace('T', ' ')} - ${name.split('.')[2]} Players`;
+    let prettyName = `${name.split('.')[0].replace('T', ' ').replace(/U/g, ':')} - ${name.split('.')[2]} Players`;
     if (prettyName.lastIndexOf('/') !== -1) {
         prettyName = prettyName.substring(prettyName.lastIndexOf('/') + 1);
     };
