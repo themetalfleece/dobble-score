@@ -168,6 +168,19 @@ var app = {
                         $selectFirst.selectmenu().selectmenu('refresh');
                         $selectLast.selectmenu().selectmenu('refresh');
                     }
+                    else if (currentRound.mode === 'potato') {
+                        for (let playerIndex = 0; playerIndex < settings.game.players.max; playerIndex++) {
+                            let $playerScoreContainer = $(`#gamePageCurrentGameDiv .currentMode[data-gameMode="potato"] .playerScoreContainer[data-index=${playerIndex}]`);
+                            if (playerIndex < gameState.players.length) {
+                                $playerScoreContainer.find('.playerName').first().text(gameState.players[playerIndex].name);
+                                $playerScoreContainer.find('.potatoScore').first().val(0);
+                                $playerScoreContainer.removeClass('ui-screen-hidden');
+                            }
+                            else {
+                                $playerScoreContainer.addClass('ui-screen-hidden');
+                            };
+                        };
+                    }
                 }
             };
 
@@ -219,6 +232,21 @@ var app = {
 
                     gameState.players[playerIndex].score += currentRound.score[playerIndex];
                 };
+
+                currentRound.active = false;
+                renderScorePage();
+                window.location.hash = "#scorePage";
+                writeGameFile();
+            });
+            // potato
+            $('#submitPotatoScoreInput').click(function () {
+                let currentRound = gameState.rounds[gameState.rounds.length - 1];
+                $(`#gamePageCurrentGameDiv .currentMode[data-gameMode="potato"] .playerScoreContainer`).not('.ui-screen-hidden').each(function (index, element) {
+                    let score = parseInt($(element).find('.potatoScore').first().val());
+                    score = score * (-5);
+                    currentRound.score[index] = score;
+                    gameState.players[index].score += currentRound.score[index];
+                });
 
                 currentRound.active = false;
                 renderScorePage();
