@@ -55,6 +55,10 @@ var app = {
 
             /* general */
             function renderScorePage() {
+                if (!gameState) {
+                    window.location.hash = "#newGamePage";
+                    return;
+                };
                 let $list = $('#scorePageList');
                 $list.html('');
                 let orderedPlayers = Array.from(gameState.players);
@@ -131,6 +135,10 @@ var app = {
             });
 
             function renderGamePage() {
+                if (!gameState) {
+                    window.location.hash = "#newGamePage";
+                    return;
+                };
                 $('.nextGameChoice').removeClass('ui-btn-b');
                 if (gameState.rounds.length === 0 || !gameState.rounds[gameState.rounds.length - 1].active) {
                     $('#gamePageChooseNextDiv').removeClass('ui-screen-hidden');
@@ -234,7 +242,7 @@ var app = {
                 };
                 currentRound.active = false;
                 renderScorePage();
-                window.location.hash = "#scorePage";
+
                 writeGameFile();
             });
             // well

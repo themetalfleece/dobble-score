@@ -43,6 +43,8 @@
         <splash density="port-xxhdpi" src="res/screen/android/drawable-xxhdpi/screen.png" />
         <splash density="port-xxxhdpi" src="res/screen/android/drawable-xxxhdpi/screen.png" />
     </platform>
+    <widget android-versionCode="10001" id="com.themetalfleece.dobbler_score" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    </widget>
     <exclude-files pattern="js/index.raw.js" />
     <engine name="android" spec="^7.0.0" />
     <engine name="browser" spec="^5.0.2" />
