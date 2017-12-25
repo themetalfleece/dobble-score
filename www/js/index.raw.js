@@ -157,7 +157,7 @@ var app = {
                         };
                     }
                     else if (currentRound.mode === 'well') {
-                        let $selectFirst = $('#towerFirstPlayerInput'), $selectLast = $('#towerLastPlayerInput');
+                        let $selectFirst = $('#wellFirstPlayerInput'), $selectLast = $('#wellLastPlayerInput');
                         $selectFirst.html('');
                         $selectLast.html('');
                         for (let playerIndex = 0; playerIndex < gameState.players.length; playerIndex++) {
@@ -180,6 +180,31 @@ var app = {
                                 $playerScoreContainer.addClass('ui-screen-hidden');
                             };
                         };
+                    }
+                    else if (currentRound.mode === 'catch') {
+                        for (let playerIndex = 0; playerIndex < settings.game.players.max; playerIndex++) {
+                            let $playerScoreContainer = $(`#gamePageCurrentGameDiv .currentMode[data-gameMode="catch"] .playerScoreContainer[data-index=${playerIndex}]`);
+                            if (playerIndex < gameState.players.length) {
+                                $playerScoreContainer.find('.playerName').first().text(gameState.players[playerIndex].name);
+                                $playerScoreContainer.find('.catchScore').first().val(0);
+                                $playerScoreContainer.removeClass('ui-screen-hidden');
+                            }
+                            else {
+                                $playerScoreContainer.addClass('ui-screen-hidden');
+                            };
+                        };
+                    }
+                    else if (currentRound.mode === 'gift') {
+                        let $selectFirst = $('#giftFirstPlayerInput'), $selectSecond = $('#giftSecondPlayerInput');
+                        $selectFirst.html('');
+                        $selectSecond.html('');
+                        for (let playerIndex = 0; playerIndex < gameState.players.length; playerIndex++) {
+                            let player = gameState.players[playerIndex];
+                            $selectFirst.append(`<option value=${playerIndex}>${player.name}</option>`);
+                            $selectSecond.append(`<option value=${playerIndex}>${player.name}</option>`);
+                        };
+                        $selectFirst.selectmenu().selectmenu('refresh');
+                        $selectSecond.selectmenu().selectmenu('refresh');
                     }
                 }
             };
@@ -211,8 +236,8 @@ var app = {
             });
             // well
             $('#submitWellScoreInput').click(function () {
-                let firstPlayerIndex = parseInt($('#towerFirstPlayerInput option:selected').val());
-                let lastPlayerIndex = parseInt($('#towerLastPlayerInput option:selected').val());
+                let firstPlayerIndex = parseInt($('#wellFirstPlayerInput option:selected').val());
+                let lastPlayerIndex = parseInt($('#wellLastPlayerInput option:selected').val());
                 if (firstPlayerIndex === lastPlayerIndex) {
                     alert('The first and last players cannot be the same');
                     return;
@@ -247,6 +272,49 @@ var app = {
                     currentRound.score[index] = score;
                     gameState.players[index].score += currentRound.score[index];
                 });
+
+                currentRound.active = false;
+                renderScorePage();
+                window.location.hash = "#scorePage";
+                writeGameFile();
+            });
+            // catch
+            $('#submitCatchScoreInput').click(function () {
+                let currentRound = gameState.rounds[gameState.rounds.length - 1];
+                $(`#gamePageCurrentGameDiv .currentMode[data-gameMode="catch"] .playerScoreContainer`).not('.ui-screen-hidden').each(function (index, element) {
+                    let score = parseInt($(element).find('.catchScore').first().val());
+                    currentRound.score[index] = score;
+                    gameState.players[index].score += currentRound.score[index];
+                });
+
+                currentRound.active = false;
+                renderScorePage();
+                window.location.hash = "#scorePage";
+                writeGameFile();
+            });
+            // gift
+            $('#submitGiftScoreInput').click(function () {
+                let firstPlayerIndex = parseInt($('#giftFirstPlayerInput option:selected').val());
+                let secondPlayerInput = parseInt($('#giftSecondPlayerInput option:selected').val());
+                if (firstPlayerIndex === secondPlayerInput) {
+                    alert('The first and second players cannot be the same');
+                    return;
+                };
+                let currentRound = gameState.rounds[gameState.rounds.length - 1];
+
+                for (let playerIndex = 0; playerIndex < gameState.players.length; playerIndex++) {
+                    if (playerIndex === firstPlayerIndex) {
+                        currentRound.score[playerIndex] = 20;
+                    }
+                    else if (playerIndex === secondPlayerInput) {
+                        currentRound.score[playerIndex] = 10;
+                    }
+                    else {
+                        currentRound.score[playerIndex] = 0;
+                    };
+
+                    gameState.players[playerIndex].score += currentRound.score[playerIndex];
+                };
 
                 currentRound.active = false;
                 renderScorePage();

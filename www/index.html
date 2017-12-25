@@ -174,11 +174,11 @@
 					</div>
 					<!-- well -->
 					<div class="currentMode ui-screen-hidden" data-gameMode="well">
-						<label for="towerFirstPlayerInput" class="select">Who was the first player who got rid of all his or her cards?</label>
-						<select name="towerFirstPlayerInput" id="towerFirstPlayerInput">
+						<label for="wellFirstPlayerInput" class="select">Who was the first player who got rid of all his or her cards?</label>
+						<select name="wellFirstPlayerInput" id="wellFirstPlayerInput">
 						</select>
-						<label for="towerLastPlayerInput" class="select">Who was the last player who got rid of all his or her cards?</label>
-						<select name="towerLastPlayerInput" id="towerLastPlayerInput">
+						<label for="wellLastPlayerInput" class="select">Who was the last player who got rid of all his or her cards?</label>
+						<select name="wellLastPlayerInput" id="wellLastPlayerInput">
 						</select>
 						<a class="ui-btn ui-shadow" id="submitWellScoreInput">Done</a>
 					</div>
@@ -218,6 +218,53 @@
 							</div>
 						</div>
 						<a class="ui-btn ui-shadow" id="submitPotatoScoreInput">Done</a>
+					</div>
+					<!-- catch -->
+					<div class="currentMode ui-screen-hidden" data-gameMode="catch">
+						How many cards did each player gain?
+						<div class="playerScores">
+							<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=0>
+								<label class='playerName'></label>
+								<input type="text" data-role="spinbox" class="catchScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
+								/>
+							</div>
+							<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=1>
+								<label class='playerName'></label>
+								<input type="text" data-role="spinbox" class="catchScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
+								/>
+							</div>
+							<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=2>
+								<label class='playerName'></label>
+								<input type="text" data-role="spinbox" class="catchScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
+								/>
+							</div>
+							<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=3>
+								<label class='playerName'></label>
+								<input type="text" data-role="spinbox" class="catchScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
+								/>
+							</div>
+							<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=4>
+								<label class='playerName'></label>
+								<input type="text" data-role="spinbox" class="catchScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
+								/>
+							</div>
+							<div class="playerScoreContainer ui-field-contain ui-screen-hidden" data-index=5>
+								<label class='playerName'></label>
+								<input type="text" data-role="spinbox" class="catchScore" data-options='{"type":"horizontal"}' value="0" min="0" max="55"
+								/>
+							</div>
+						</div>
+						<a class="ui-btn ui-shadow" id="submitCatchScoreInput">Done</a>
+					</div>
+					<!-- gift -->
+					<div class="currentMode ui-screen-hidden" data-gameMode="gift">
+						<label for="giftFirstPlayerInput" class="select">Who was the player who got the fewest cards?</label>
+						<select name="giftFirstPlayerInput" id="giftFirstPlayerInput">
+						</select>
+						<label for="giftSecondPlayerInput" class="select">Who was the player who got the second fewest cards?</label>
+						<select name="giftSecondPlayerInput" id="giftSecondPlayerInput">
+						</select>
+						<a class="ui-btn ui-shadow" id="submitGiftScoreInput">Done</a>
 					</div>
 				</div>
 			</div>
