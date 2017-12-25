@@ -97,6 +97,7 @@ var app = {
             $('#gameHistoryBtn').click(function () {
                 return fs.list(logDir, 'e')
                     .then((files) => {
+                        files.sort(function (a, b) { a.name < b.name });
                         let $list = $('#gameHistoryList');
                         $list.html('');
                         for (let i = 0; i < files.length; i++) {
