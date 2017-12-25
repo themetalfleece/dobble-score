@@ -4,6 +4,8 @@
 * cd to project path
 * `cordova platform add android` and/or `cordova platform add browser`
 * `cordova plugin add cordova-plugin-file`
+* `cordova plugin add cordova-plugin-exclude-files`
+* or `cordova prepare`
 * `npm i`
 # Running the app
 Android:

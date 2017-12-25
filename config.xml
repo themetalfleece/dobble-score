@@ -43,8 +43,10 @@
         <splash density="port-xxhdpi" src="res/screen/android/drawable-xxhdpi/screen.png" />
         <splash density="port-xxxhdpi" src="res/screen/android/drawable-xxxhdpi/screen.png" />
     </platform>
+    <exclude-files pattern="js/index.raw.js" />
     <engine name="android" spec="^7.0.0" />
     <engine name="browser" spec="^5.0.2" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
     <plugin name="cordova-plugin-file" spec="^5.0.0" />
+    <plugin name="cordova-plugin-exclude-files" spec="^0.2.2" />
 </widget>
