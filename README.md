@@ -9,7 +9,7 @@
 * `yarn`
 # Running the app
 Android:
-* `browserify www/js/index.raw.js > www/js/index.js; cordova build android; cordova run android`
+* `browserify www/js/index.js > www/js/app-index.js; cordova build android; cordova run android`
 
 Browser:
-* `browserify www/js/index.raw.js > www/js/index.js; cordova build browser; cordova run browser`
+* `browserify www/js/index.js > www/js/app-index.js; cordova build browser; cordova run browser`
