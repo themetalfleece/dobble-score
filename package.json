@@ -1,7 +1,7 @@
 {
   "name": "com.themetalfleece.dobblescore",
   "displayName": "Dobble Score",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A score keeper for the game 'Dobble'",
   "main": "index.js",
   "scripts": {

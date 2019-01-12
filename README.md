@@ -22,3 +22,8 @@ Android:
 
 Browser:
 * `browserify www/js/index.js > www/js/app-index.js; cordova build browser; cordova run browser`
+
+# Build for Android
+Install [Android Studio](https://developer.android.com/studio/)
+* To build the unsigned version, run `cordova run android --release`
+* To build the signed version, run `cordova run android --release -- --keystore=../my-release-key.keystore --storePassword=password --alias=alias_name --password=password`. More info [here](https://cordova.apache.org/docs/en/latest/guide/platforms/android/#signing-an-app)
