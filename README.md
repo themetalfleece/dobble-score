@@ -10,20 +10,16 @@ It's also **[published on Play Store](https://play.google.com/store/apps/details
 * install [npm](https://nodejs.org/en/) and [yarn](https://yarnpkg.com/en/docs/install)
 * `yarn global add cordova browserify`
 * cd to project path
-* `cordova platform add android` and/or `cordova platform add browser`
-* `cordova plugin add cordova-plugin-file`
-* `cordova plugin add cordova-plugin-exclude-files`
-* or `cordova prepare`
-* `yarn`
+* `yarn prepare`
 
 # Running the app
 Android:
-* `browserify www/js/index.js > www/js/app-index.js; cordova build android; cordova run android`
+* `yarn android`
 
 Browser:
-* `browserify www/js/index.js > www/js/app-index.js; cordova build browser; cordova run browser`
+* `yarn browser`
 
 # Build for Android
 Install [Android Studio](https://developer.android.com/studio/)
-* To build the unsigned version, run `cordova run android --release`
-* To build the signed version, run `cordova run android --release -- --keystore=../my-release-key.keystore --storePassword=password --alias=alias_name --password=password`. More info [here](https://cordova.apache.org/docs/en/latest/guide/platforms/android/#signing-an-app)
+* To build the unsigned version, run `yarn android-release`
+* To build the signed version, run `yarn build-js && cordova run android --release -- --keystore=../my-release-key.keystore --storePassword=password --alias=alias_name --password=password`. More info [here](https://cordova.apache.org/docs/en/latest/guide/platforms/android/#signing-an-app)
