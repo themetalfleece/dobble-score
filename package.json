@@ -5,7 +5,7 @@
   "description": "A score keeper for the game 'Dobble'",
   "main": "index.js",
   "scripts": {
-    "prepate": "cordova prepare && yarn",
+    "setup": "cordova prepare && yarn",
     "build-js": "browserify www/js/index.js > www/js/app-index.js",
     "android": "yarn build-js && cordova build android && cordova run android",
     "browser": "yarn build-js && cordova build browser && cordova run browser",
